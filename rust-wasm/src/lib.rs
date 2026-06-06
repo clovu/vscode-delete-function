@@ -5,86 +5,89 @@ use wasm_bindgen::prelude::*;
 
 #[derive(Serialize)]
 pub struct RsPosition {
-  pub line: usize,
-  pub column: usize,
+    pub line: usize,
+    pub column: usize,
 }
 
 #[derive(Serialize)]
 pub struct RsNode {
-  pub name: String,
-  pub start: RsPosition,
+    pub name: String,
+    pub start: RsPosition,
 
-  pub end: RsPosition,
+    pub end: RsPosition,
 }
 
 impl From<RsNode> for String {
-  fn from(val: RsNode) -> Self {
-    serde_json::to_string(&val).unwrap()
-  }
+    fn from(val: RsNode) -> Self {
+        serde_json::to_string(&val).unwrap()
+    }
 }
 
 fn is_item_in_range(span: Span, focus_line: usize) -> bool {
-  let start = span.start().line;
-  let end = span.end().line;
+    let start = span.start().line;
+    let end = span.end().line;
 
-  end >= focus_line && start <= focus_line
+    end >= focus_line && start <= focus_line
 }
 
 // impl RsNode for WasmDescribe {}
 fn determine_range(span: Span, sig_ident: String, focus_line: usize) -> Option<RsNode> {
-  let start = span.start().line;
-  let end = span.end().line;
+    let start = span.start().line;
+    let end = span.end().line;
 
-  if is_item_in_range(span, focus_line) {
-    let start = RsPosition {
-      line: start,
-      column: span.start().column,
-    };
-    let end = RsPosition {
-      line: end,
-      column: span.end().column,
-    };
+    if is_item_in_range(span, focus_line) {
+        let start = RsPosition {
+            line: start,
+            column: span.start().column,
+        };
+        let end = RsPosition {
+            line: end,
+            column: span.end().column,
+        };
 
-    return Some(RsNode {
-      name: sig_ident.clone(),
-      start,
-      end,
-    });
-  }
-  None
+        return Some(RsNode {
+            name: sig_ident.clone(),
+            start,
+            end,
+        });
+    }
+    None
 }
 
 fn for_each_impl_items(items: Vec<syn::ImplItem>, focus_line: usize) -> Option<RsNode> {
-  items.into_iter().find_map(|item| match item {
-    syn::ImplItem::Fn(item) => determine_range(item.span(), item.sig.ident.to_string(), focus_line),
-    _ => None,
-  })
+    items.into_iter().find_map(|item| match item {
+        syn::ImplItem::Fn(item) => {
+            determine_range(item.span(), item.sig.ident.to_string(), focus_line)
+        }
+        _ => None,
+    })
 }
 
 #[wasm_bindgen]
 pub fn rust2ast(code: &str, focus_line: usize) -> Option<String> {
-  let ast_result = syn::parse_str::<syn::File>(code);
+    let ast_result = syn::parse_str::<syn::File>(code);
 
-  let Ok(ast) = ast_result else {
-    return None;
-  };
+    let Ok(ast) = ast_result else {
+        return None;
+    };
 
-  ast
-    .items
-    .into_iter()
-    .find_map(|item| match item {
-      syn::Item::Fn(item) => determine_range(item.span(), item.sig.ident.to_string(), focus_line),
-      syn::Item::Impl(item) if is_item_in_range(item.span(), focus_line) => {
-        for_each_impl_items(item.items, focus_line)
-      }
-      _ => None,
-    })
-    .map(Into::into)
+    ast.items
+        .into_iter()
+        .find_map(|item| match item {
+            syn::Item::Fn(item) => {
+                determine_range(item.span(), item.sig.ident.to_string(), focus_line)
+            }
+            syn::Item::Impl(item) if is_item_in_range(item.span(), focus_line) => {
+                for_each_impl_items(item.items, focus_line)
+            }
+            _ => None,
+        })
+        .map(Into::into)
 }
 
 #[test]
 fn test() {
-  let code = r#"
+    let code = r#"
   const sex: string = "";
 
   pub fn hello() {}
@@ -105,6 +108,6 @@ fn test() {
   }
   "#;
 
-  let result = rust2ast(code, 15);
-  assert!(result.is_some())
+    let result = rust2ast(code, 15);
+    assert!(result.is_some())
 }
