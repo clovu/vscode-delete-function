@@ -6,7 +6,11 @@ export function activate(context: vscode.ExtensionContext) {
   const disposable = vscode.commands.registerCommand(commandId, () => {
     try {
       deleteFunction();
-    } catch (e) { }
+    } catch (e) {
+      console.error(e);
+      const message = e instanceof Error ? e.message : String(e);
+      vscode.window.showErrorMessage(`Delete function failed: ${message}`);
+    }
   });
 
   context.subscriptions.push(disposable);
