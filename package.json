@@ -54,12 +54,12 @@
     "test:unit": "vitest --run"
   },
   "devDependencies": {
-    "@babel/types": "^7.23.6",
+    "@babel/types": "^7.29.7",
     "@eslint/js": "^10.0.1",
-    "@types/babel__traverse": "^7.18.2",
-    "@types/glob": "^7.2.0",
+    "@types/babel__traverse": "^7.28.0",
+    "@types/glob": "^9.0.0",
     "@types/mocha": "^9.1.1",
-    "@types/node": "16.x",
+    "@types/node": "25.9.2",
     "@types/vscode": "^1.72.0",
     "@typescript-eslint/eslint-plugin": "^8.60.1",
     "@typescript-eslint/parser": "^8.60.1",
@@ -73,8 +73,8 @@
     "vitest": "^4.1.8"
   },
   "dependencies": {
-    "@babel/parser": "^7.19.4",
-    "@babel/traverse": "^7.19.4",
+    "@babel/parser": "^7.29.7",
+    "@babel/traverse": "^7.29.7",
     "@vue/compiler-sfc": "^3.2.40",
     "pkg": "link:rust-wasm/pkg"
   }
