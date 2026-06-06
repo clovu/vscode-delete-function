@@ -1,7 +1,7 @@
-import * as vscode from 'vscode';
-import { getDeleteFunctionNodeJs } from "./handleJs";
-import { getDeleteFunctionNodeRust } from "./handleRs";
-import { getDeleteFunctionNodeVue } from "./handleVue";
+import * as vscode from 'vscode'
+import { getDeleteFunctionNodeJs } from './handleJs'
+import { getDeleteFunctionNodeRust } from './handleRs'
+import { getDeleteFunctionNodeVue } from './handleVue'
 
 export interface Node {
   name: string;
@@ -18,15 +18,15 @@ export interface Node {
 }
 
 export function getDeleteFunctionNode(index: number, code: string, type: string) {
-  if (type === "vue") {
-    return getDeleteFunctionNodeVue(index, code);
-  } if (type === "rust") {
-    const editor = vscode.window.activeTextEditor;
-    if (!editor) { return; }
-    const curPos = editor.selection.active;
+  if (type === 'vue') {
+    return getDeleteFunctionNodeVue(index, code)
+  } if (type === 'rust') {
+    const editor = vscode.window.activeTextEditor
+    if (!editor) { return }
+    const curPos = editor.selection.active
 
-    return getDeleteFunctionNodeRust(code, curPos.line);
+    return getDeleteFunctionNodeRust(code, curPos.line)
   } else {
-    return getDeleteFunctionNodeJs(index, code);
+    return getDeleteFunctionNodeJs(index, code)
   }
 }

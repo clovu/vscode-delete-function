@@ -1,27 +1,27 @@
 // ExportNamedDeclaration and ExportDefaultDeclaration
-import { isExportNamedDeclaration, isFunctionDeclaration } from "@babel/types";
-import { BaseNodeHandler } from "./BaseNodeHandler";
+import { isExportNamedDeclaration, isFunctionDeclaration } from '@babel/types'
+import { BaseNodeHandler } from './BaseNodeHandler'
 export class ExportDeclarationHandler extends BaseNodeHandler {
   isContain(): boolean {
-    return this._isContain(this.path.parentPath!.node, this.index);
+    return this._isContain(this.path.parentPath!.node, this.index)
   }
 
   handle() {
-    const parentPath = this.path.parentPath!;
-    const parentNode = parentPath.node;
+    const parentPath = this.path.parentPath!
+    const parentNode = parentPath.node
     const getName = () => {
       if (!isExportNamedDeclaration(parentNode)) {
-        return "";
+        return ''
       }
-      const declaration = parentNode.declaration;
+      const declaration = parentNode.declaration
       return isFunctionDeclaration(declaration)
-        ? declaration.id?.name ?? ""
-        : "";
-    };
+        ? declaration.id?.name ?? ''
+        : ''
+    }
     return {
       name: getName(),
       start: { ...parentNode.loc!.start },
       end: { ...parentNode.loc!.end },
-    };
+    }
   }
 }

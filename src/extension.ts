@@ -1,40 +1,40 @@
-import * as vscode from "vscode";
-import { getDeleteFunctionNode } from "./handlers";
+import * as vscode from 'vscode'
+import { getDeleteFunctionNode } from './handlers'
 
 export function activate(context: vscode.ExtensionContext) {
-  const commandId = "delete-function.deleteFunction";
+  const commandId = 'delete-function.deleteFunction'
   const disposable = vscode.commands.registerCommand(commandId, () => {
     try {
-      deleteFunction();
+      deleteFunction()
     } catch (e) {
-      console.error(e);
-      const message = e instanceof Error ? e.message : String(e);
-      vscode.window.showErrorMessage(`Delete function failed: ${message}`);
+      console.error(e)
+      const message = e instanceof Error ? e.message : String(e)
+      vscode.window.showErrorMessage(`Delete function failed: ${message}`)
     }
-  });
+  })
 
-  context.subscriptions.push(disposable);
+  context.subscriptions.push(disposable)
 }
 
 function deleteFunction() {
-  const editor = vscode.window.activeTextEditor;
+  const editor = vscode.window.activeTextEditor
 
   if (editor) {
-    const curPos = editor.selection.active;
-    const offset = editor.document.offsetAt(curPos);
-    const languageType = vscode.window.activeTextEditor?.document.languageId;
+    const curPos = editor.selection.active
+    const offset = editor.document.offsetAt(curPos)
+    const languageType = vscode.window.activeTextEditor?.document.languageId
 
     if (!languageType) {
-      return;
+      return
     }
     const node = getDeleteFunctionNode(
       offset,
       editor.document.getText(),
       languageType
-    );
+    )
 
     if (!node) {
-      return;
+      return
     }
 
     editor.edit((editBuilder) => {
@@ -43,7 +43,7 @@ function deleteFunction() {
           new vscode.Position(node.start.line - 1, node.start.column),
           new vscode.Position(node.end.line - 1, node.end.column)
         )
-      );
-    });
+      )
+    })
   }
 }

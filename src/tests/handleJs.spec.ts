@@ -1,10 +1,10 @@
-import { describe, it, expect, test } from "vitest";
-import { getDeleteFunctionNodeJs } from "../handlers/handleJs";
+import { describe, it, expect, test } from 'vitest'
+import { getDeleteFunctionNodeJs } from '../handlers/handleJs'
 
-describe("FunctionDeclaration", () => {
-  it("should delete function at index Position", () => {
+describe('FunctionDeclaration', () => {
+  it('should delete function at index Position', () => {
     // getName
-    let index = 29;
+    let index = 29
 
     const code = `
     const name = "cxr";
@@ -14,12 +14,12 @@ describe("FunctionDeclaration", () => {
     function setName(newName){
       name = newName
     }
-    `;
+    `
 
-    const node = getDeleteFunctionNodeJs(index, code);
+    const node = getDeleteFunctionNodeJs(index, code)
 
     expect(node).toEqual({
-      name: "getName",
+      name: 'getName',
       start: {
         line: 3,
         column: 4,
@@ -30,16 +30,16 @@ describe("FunctionDeclaration", () => {
         column: 5,
         index: 78,
       },
-    });
+    })
 
     // update index
     // setName
-    index = 83;
+    index = 83
 
-    const updatedNode = getDeleteFunctionNodeJs(index, code);
+    const updatedNode = getDeleteFunctionNodeJs(index, code)
 
     expect(updatedNode).toEqual({
-      name: "setName",
+      name: 'setName',
       start: {
         line: 6,
         column: 4,
@@ -50,23 +50,23 @@ describe("FunctionDeclaration", () => {
         column: 5,
         index: 136,
       },
-    });
-  });
+    })
+  })
 
-  it("export function", () => {
-    const index = 37;
+  it('export function', () => {
+    const index = 37
 
     const code = `
     const name = "cxr";
     export function getName () {
         return 'name'
     }
-    `;
+    `
 
-    const node = getDeleteFunctionNodeJs(index, code);
+    const node = getDeleteFunctionNodeJs(index, code)
 
     expect(node).toEqual({
-      name: "getName",
+      name: 'getName',
       start: {
         line: 3,
         column: 4,
@@ -77,23 +77,23 @@ describe("FunctionDeclaration", () => {
         column: 5,
         index: 85,
       },
-    });
-  });
+    })
+  })
 
-  it("export default function", () => {
-    const index = 37;
+  it('export default function', () => {
+    const index = 37
 
     const code = `
     const name = "cxr";
     export default function getName () {
         return 'name'
     }
-    `;
+    `
 
-    const node = getDeleteFunctionNodeJs(index, code);
+    const node = getDeleteFunctionNodeJs(index, code)
 
     expect(node).toEqual({
-      name: "",
+      name: '',
       start: {
         line: 3,
         column: 4,
@@ -104,12 +104,12 @@ describe("FunctionDeclaration", () => {
         column: 5,
         index: 93,
       },
-    });
-  });
+    })
+  })
 
-  describe("nested function", () => {
-    it("should delete outside function", () => {
-      const index = 38;
+  describe('nested function', () => {
+    it('should delete outside function', () => {
+      const index = 38
 
       const code = `
     const name = "cxr";
@@ -118,12 +118,12 @@ describe("FunctionDeclaration", () => {
         return "heihei"
       }
     }
-    `;
+    `
 
-      const node = getDeleteFunctionNodeJs(index, code);
+      const node = getDeleteFunctionNodeJs(index, code)
 
       expect(node).toEqual({
-        name: "getName",
+        name: 'getName',
         start: {
           line: 3,
           column: 4,
@@ -134,11 +134,11 @@ describe("FunctionDeclaration", () => {
           column: 5,
           index: 113,
         },
-      });
-    });
-    it("should delete inside function", () => {
+      })
+    })
+    it('should delete inside function', () => {
       // 定位到 heihei 的位置
-      const index = 57;
+      const index = 57
 
       const code = `
     const name = "cxr";
@@ -147,12 +147,12 @@ describe("FunctionDeclaration", () => {
         return "heihei"
       }
     }
-    `;
+    `
 
-      const node = getDeleteFunctionNodeJs(index, code);
+      const node = getDeleteFunctionNodeJs(index, code)
 
       expect(node).toEqual({
-        name: "heihei",
+        name: 'heihei',
         start: {
           line: 4,
           column: 6,
@@ -163,15 +163,15 @@ describe("FunctionDeclaration", () => {
           column: 7,
           index: 107,
         },
-      });
-    });
-  });
-});
+      })
+    })
+  })
+})
 
-describe("FunctionExpression", () => {
-  it("should delete function at index Position", () => {
+describe('FunctionExpression', () => {
+  it('should delete function at index Position', () => {
     // getName function
-    let index = 45;
+    let index = 45
 
     const code = `
     const name = "cxr";
@@ -181,12 +181,12 @@ describe("FunctionExpression", () => {
     const setName = function (){
       return 'name'
     }
-    `;
+    `
 
-    const node = getDeleteFunctionNodeJs(index, code);
+    const node = getDeleteFunctionNodeJs(index, code)
 
     expect(node).toEqual({
-      name: "getName",
+      name: 'getName',
       start: {
         line: 3,
         column: 4,
@@ -197,15 +197,15 @@ describe("FunctionExpression", () => {
         column: 5,
         index: 86,
       },
-    });
+    })
 
     // update index
     // setName
-    index = 91;
-    const updatedNode = getDeleteFunctionNodeJs(index, code);
+    index = 91
+    const updatedNode = getDeleteFunctionNodeJs(index, code)
 
     expect(updatedNode).toEqual({
-      name: "setName",
+      name: 'setName',
       start: {
         line: 6,
         column: 4,
@@ -216,13 +216,13 @@ describe("FunctionExpression", () => {
         column: 5,
         index: 145,
       },
-    });
-  });
+    })
+  })
 
-  describe("nested function", () => {
-    it("should delete outside function", () => {
+  describe('nested function', () => {
+    it('should delete outside function', () => {
       // getName function
-      const index = 29;
+      const index = 29
 
       const code = `
     const name = "cxr";
@@ -233,12 +233,12 @@ describe("FunctionExpression", () => {
           console.log("setName")
         }
     }
-    `;
+    `
 
-      const node = getDeleteFunctionNodeJs(index, code);
+      const node = getDeleteFunctionNodeJs(index, code)
 
       expect(node).toEqual({
-        name: "getName",
+        name: 'getName',
         start: {
           line: 3,
           column: 4,
@@ -249,12 +249,12 @@ describe("FunctionExpression", () => {
           column: 5,
           index: 167,
         },
-      });
-    });
+      })
+    })
 
-    it("should delete inside function", () => {
+    it('should delete inside function', () => {
       // setName function
-      const index = 90;
+      const index = 90
 
       const code = `
     const name = "cxr";
@@ -265,12 +265,12 @@ describe("FunctionExpression", () => {
           console.log("setName")
         }
     }
-    `;
+    `
 
-      const node = getDeleteFunctionNodeJs(index, code);
+      const node = getDeleteFunctionNodeJs(index, code)
 
       expect(node).toEqual({
-        name: "setName",
+        name: 'setName',
         start: {
           line: 6,
           column: 8,
@@ -281,24 +281,24 @@ describe("FunctionExpression", () => {
           column: 9,
           index: 161,
         },
-      });
-    });
-  });
+      })
+    })
+  })
 
-  it("export function", () => {
-    const index = 37;
+  it('export function', () => {
+    const index = 37
 
     const code = `
     const name = "cxr";
     export const getName = function () {
         return 'name'
     }
-    `;
+    `
 
-    const node = getDeleteFunctionNodeJs(index, code);
+    const node = getDeleteFunctionNodeJs(index, code)
 
     expect(node).toEqual({
-      name: "getName",
+      name: 'getName',
       start: {
         line: 3,
         column: 4,
@@ -309,23 +309,23 @@ describe("FunctionExpression", () => {
         column: 5,
         index: 93,
       },
-    });
-  });
+    })
+  })
 
-  it("export default function", () => {
-    const index = 37;
+  it('export default function', () => {
+    const index = 37
 
     const code = `
     const name = "cxr";
     export default function () {
         return 'name'
     }
-    `;
+    `
 
-    const node = getDeleteFunctionNodeJs(index, code);
+    const node = getDeleteFunctionNodeJs(index, code)
 
     expect(node).toEqual({
-      name: "",
+      name: '',
       start: {
         line: 3,
         column: 4,
@@ -336,26 +336,26 @@ describe("FunctionExpression", () => {
         column: 5,
         index: 85,
       },
-    });
-  });
-});
+    })
+  })
+})
 
-describe("ArrowFunctionExpression", () => {
-  it("should delete function at index Position", () => {
+describe('ArrowFunctionExpression', () => {
+  it('should delete function at index Position', () => {
     // getName
-    let index = 29;
+    let index = 29
 
     const code = `
     const name = "cxr";
     const getName = ()=> "cxr";
     const setName = ()=> "cxr";
-    `;
+    `
 
     // 应该返回的是 getName
-    const node = getDeleteFunctionNodeJs(index, code);
+    const node = getDeleteFunctionNodeJs(index, code)
 
     expect(node).toEqual({
-      name: "getName",
+      name: 'getName',
       start: {
         line: 3,
         column: 4,
@@ -366,16 +366,16 @@ describe("ArrowFunctionExpression", () => {
         column: 31,
         index: 56,
       },
-    });
+    })
 
     // update index
     // setName
-    index = 61;
+    index = 61
 
-    const updatedNode = getDeleteFunctionNodeJs(index, code);
+    const updatedNode = getDeleteFunctionNodeJs(index, code)
 
     expect(updatedNode).toEqual({
-      name: "setName",
+      name: 'setName',
       start: {
         line: 4,
         column: 4,
@@ -386,20 +386,20 @@ describe("ArrowFunctionExpression", () => {
         column: 31,
         index: 88,
       },
-    });
-  });
+    })
+  })
 
-  it("export function", () => {
-    const index = 37;
+  it('export function', () => {
+    const index = 37
 
     const code = `
     const name = "cxr";
-    export const getName = ()=>"heihei"`;
+    export const getName = ()=>"heihei"`
 
-    const node = getDeleteFunctionNodeJs(index, code);
+    const node = getDeleteFunctionNodeJs(index, code)
 
     expect(node).toEqual({
-      name: "getName",
+      name: 'getName',
       start: {
         line: 3,
         column: 4,
@@ -410,20 +410,20 @@ describe("ArrowFunctionExpression", () => {
         index: 64,
         line: 3,
       },
-    });
-  });
+    })
+  })
 
-  it("export default function", () => {
-    const index = 37;
+  it('export default function', () => {
+    const index = 37
 
     const code = `
     const name = "cxr";
-    export default ()=> 'heihei'`;
+    export default ()=> 'heihei'`
 
-    const node = getDeleteFunctionNodeJs(index, code);
+    const node = getDeleteFunctionNodeJs(index, code)
 
     expect(node).toEqual({
-      name: "",
+      name: '',
       start: {
         line: 3,
         column: 4,
@@ -434,13 +434,13 @@ describe("ArrowFunctionExpression", () => {
         index: 57,
         line: 3,
       },
-    });
-  });
+    })
+  })
 
-  describe("nested function", () => {
-    it("should delete outside function", () => {
+  describe('nested function', () => {
+    it('should delete outside function', () => {
       // getName function
-      const index = 29;
+      const index = 29
 
       const code = `
     const name = "cxr";
@@ -448,12 +448,12 @@ describe("ArrowFunctionExpression", () => {
       console.log("heihei");
       const setName = ()=> "hei"
     };
-    `;
+    `
 
-      const node = getDeleteFunctionNodeJs(index, code);
+      const node = getDeleteFunctionNodeJs(index, code)
 
       expect(node).toEqual({
-        name: "getName",
+        name: 'getName',
         start: {
           line: 3,
           column: 4,
@@ -464,12 +464,12 @@ describe("ArrowFunctionExpression", () => {
           column: 6,
           index: 120,
         },
-      });
-    });
+      })
+    })
 
-    it("should delete inside function", () => {
+    it('should delete inside function', () => {
       // setName function
-      const index = 87;
+      const index = 87
 
       const code = `
     const name = "cxr";
@@ -477,12 +477,12 @@ describe("ArrowFunctionExpression", () => {
       console.log("heihei");
       const setName = ()=> "hei"
     };
-    `;
+    `
 
-      const node = getDeleteFunctionNodeJs(index, code);
+      const node = getDeleteFunctionNodeJs(index, code)
 
       expect(node).toEqual({
-        name: "setName",
+        name: 'setName',
         start: {
           line: 5,
           column: 6,
@@ -493,13 +493,13 @@ describe("ArrowFunctionExpression", () => {
           column: 32,
           index: 113,
         },
-      });
-    });
-  });
-});
+      })
+    })
+  })
+})
 
-test("Class Method", () => {
-  const index = 20;
+test('Class Method', () => {
+  const index = 20
   const code = `
   class Dog{
     getName(){
@@ -510,11 +510,11 @@ test("Class Method", () => {
       return "name"
     }
   }
-  `;
+  `
 
-  const node = getDeleteFunctionNodeJs(index, code);
+  const node = getDeleteFunctionNodeJs(index, code)
   expect(node).toEqual({
-    name: "getName",
+    name: 'getName',
     start: {
       column: 4,
       index: 18,
@@ -525,24 +525,24 @@ test("Class Method", () => {
       index: 54,
       line: 5,
     },
-  });
-});
+  })
+})
 
 
-it("export arrowFunctionExpression function and export FunctionDeclaration  ", () => {
-  const index = 37;
+it('export arrowFunctionExpression function and export FunctionDeclaration  ', () => {
+  const index = 37
 
   const code = `
   export const getName = () => 'heihei';
   export const getNameA = function () {
     console.log('getNameA');
   };
-  `;
+  `
 
-  const node = getDeleteFunctionNodeJs(index, code);
+  const node = getDeleteFunctionNodeJs(index, code)
 
   expect(node).toEqual({
-    name: "getName",
+    name: 'getName',
     start: {
       column: 2,
       index: 3,
@@ -553,23 +553,23 @@ it("export arrowFunctionExpression function and export FunctionDeclaration  ", (
       index: 41,
       line: 2,
     },
-  });
-});
+  })
+})
 
-describe("object property", () => {
-  it("arrowFunctionExpression", () => {
+describe('object property', () => {
+  it('arrowFunctionExpression', () => {
     const code = `
     const user = {
       setNameA:()=>"heihei",
       setNameB:function(){},
     };
-    `;
+    `
 
-    let index = 26;
-    let node = getDeleteFunctionNodeJs(index, code);
+    let index = 26
+    let node = getDeleteFunctionNodeJs(index, code)
 
     expect(node).toEqual({
-      name: "setNameA",
+      name: 'setNameA',
       start: {
         line: 3,
         column: 6,
@@ -580,13 +580,13 @@ describe("object property", () => {
         column: 27,
         index: 47,
       },
-    });
+    })
 
     // update index to setNameB
-    index = 55;
-    node = getDeleteFunctionNodeJs(index, code);
+    index = 55
+    node = getDeleteFunctionNodeJs(index, code)
     expect(node).toEqual({
-      name: "setNameB",
+      name: 'setNameB',
       start: {
         line: 4,
         column: 6,
@@ -597,21 +597,21 @@ describe("object property", () => {
         column: 27,
         index: 76,
       },
-    });
-  });
+    })
+  })
 
-  it("object method", () => {
+  it('object method', () => {
     const code = `
     const user = {
       getName(){},
     };
-    `;
+    `
 
-    const index = 26;
-    const node = getDeleteFunctionNodeJs(index, code);
+    const index = 26
+    const node = getDeleteFunctionNodeJs(index, code)
 
     expect(node).toEqual({
-      name: "getName",
+      name: 'getName',
       start: {
         column: 6,
         index: 26,
@@ -622,23 +622,23 @@ describe("object property", () => {
         index: 37,
         line: 3,
       },
-    });
-  });
+    })
+  })
 
-  it("object method and arrowFunctionExpression", () => {
+  it('object method and arrowFunctionExpression', () => {
     const code = `
     const user = {
       setNameA: () => 'heihei',
       setNameB () {},
       name:"heihei"
     }
-    `;
+    `
 
-    const index = 26;
-    const node = getDeleteFunctionNodeJs(index, code);
+    const index = 26
+    const node = getDeleteFunctionNodeJs(index, code)
 
     expect(node).toEqual({
-      name: "setNameA",
+      name: 'setNameA',
       start: {
         line: 3,
         column: 6,
@@ -649,6 +649,6 @@ describe("object property", () => {
         column: 30,
         index: 50,
       },
-    });
-  });
-});
+    })
+  })
+})

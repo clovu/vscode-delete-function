@@ -1,10 +1,10 @@
-import { rust2ast } from "pkg/delete_function_vsc";
-import { Node } from './index';
+import { rust2ast } from 'pkg/delete_function_vsc'
+import { Node } from './index'
 
 export function getDeleteFunctionNodeRust(code: string, focusLine: number) {
-  const astStr = rust2ast(code, focusLine + 1);
-  if (!astStr) { return; }
-  const ast = JSON.parse(astStr) as Node;
+  const astStr = rust2ast(code, focusLine + 1)
+  if (!astStr) { return }
+  const ast = JSON.parse(astStr) as Node
 
   return {
     name: ast.name,
@@ -16,5 +16,5 @@ export function getDeleteFunctionNodeRust(code: string, focusLine: number) {
       line: ast.end.line,
       column: ast.end.column
     },
-  };
+  }
 }
