@@ -17,9 +17,9 @@ pub struct RsNode {
   pub end: RsPosition,
 }
 
-impl Into<String> for RsNode {
-  fn into(self) -> String {
-    return serde_json::to_string(&self).unwrap();
+impl From<RsNode> for String {
+  fn from(val: RsNode) -> Self {
+    serde_json::to_string(&val).unwrap()
   }
 }
 
@@ -47,8 +47,8 @@ fn determine_range(span: Span, sig_ident: String, focus_line: usize) -> Option<R
 
     return Some(RsNode {
       name: sig_ident.clone(),
-      start: start,
-      end: end,
+      start,
+      end,
     });
   }
   None
@@ -56,13 +56,10 @@ fn determine_range(span: Span, sig_ident: String, focus_line: usize) -> Option<R
 
 fn for_each_impl_items(items: Vec<syn::ImplItem>, focus_line: usize) -> Option<RsNode> {
   for item in items {
-    match item {
-      syn::ImplItem::Fn(item) => {
-        if let Some(range) = determine_range(item.span(), item.sig.ident.to_string(), focus_line) {
-          return Some(range);
-        }
-      }
-      _ => {}
+    if let syn::ImplItem::Fn(item) = item
+      && let Some(range) = determine_range(item.span(), item.sig.ident.to_string(), focus_line)
+    {
+      return Some(range);
     }
   }
   None
@@ -84,10 +81,10 @@ pub fn rust2ast(code: &str, focus_line: usize) -> Option<String> {
         }
       }
       syn::Item::Impl(item) => {
-        if is_item_in_range(item.span(), focus_line) {
-          if let Some(range) = for_each_impl_items(item.items, focus_line) {
-            return Some(range.into());
-          }
+        if is_item_in_range(item.span(), focus_line)
+          && let Some(range) = for_each_impl_items(item.items, focus_line)
+        {
+          return Some(range.into());
         }
       }
       _ => {}
