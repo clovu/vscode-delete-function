@@ -11,7 +11,7 @@ export default defineConfig(
       'curly': 'warn',
       'eqeqeq': 'warn',
       'no-throw-literal': 'warn',
-      'semi': 'off',
+      'semi': ['warn', 'never'],
       'quotes': ['warn', 'single'],
       'ts/explicit-function-return-type': 'off',
       'markdown/require-alt-text': 'off',
