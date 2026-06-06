@@ -12,6 +12,7 @@ export default defineConfig(
       'eqeqeq': 'warn',
       'no-throw-literal': 'warn',
       'semi': 'off',
+      'quotes': ['warn', 'single'],
       'ts/explicit-function-return-type': 'off',
       'markdown/require-alt-text': 'off',
     },
