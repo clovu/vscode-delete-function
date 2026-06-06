@@ -1,13 +1,19 @@
+import { isIdentifier, isVariableDeclarator } from "@babel/types";
 import { BaseNodeHandler } from "./BaseNodeHandler";
 export class FunctionExpressionHandler extends BaseNodeHandler {
-  isContain(): Boolean {
-    return this._isContain(this.path.parentPath.parentPath.node, this.index);
+  isContain(): boolean {
+    return this._isContain(this.path.parentPath!.parentPath!.node, this.index);
   }
   handle() {
+    const declaratorNode = this.path.parentPath!.node;
+    const id = isVariableDeclarator(declaratorNode)
+      ? declaratorNode.id
+      : undefined;
+    const grandParentNode = this.path.parentPath!.parentPath!.node;
     return {
-      name: this.path.parentPath.node.id.name,
-      start: { ...this.path.parentPath.parentPath.node.loc.start },
-      end: { ...this.path.parentPath.parentPath.node.loc.end },
+      name: isIdentifier(id) ? id.name : "",
+      start: { ...grandParentNode.loc!.start },
+      end: { ...grandParentNode.loc!.end },
     };
   }
 }

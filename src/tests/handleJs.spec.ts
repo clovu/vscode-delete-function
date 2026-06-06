@@ -54,7 +54,7 @@ describe("FunctionDeclaration", () => {
   });
 
   it("export function", () => {
-    let index = 37;
+    const index = 37;
 
     const code = `
     const name = "cxr";
@@ -81,7 +81,7 @@ describe("FunctionDeclaration", () => {
   });
 
   it("export default function", () => {
-    let index = 37;
+    const index = 37;
 
     const code = `
     const name = "cxr";
@@ -286,7 +286,7 @@ describe("FunctionExpression", () => {
   });
 
   it("export function", () => {
-    let index = 37;
+    const index = 37;
 
     const code = `
     const name = "cxr";
@@ -313,7 +313,7 @@ describe("FunctionExpression", () => {
   });
 
   it("export default function", () => {
-    let index = 37;
+    const index = 37;
 
     const code = `
     const name = "cxr";
@@ -390,7 +390,7 @@ describe("ArrowFunctionExpression", () => {
   });
 
   it("export function", () => {
-    let index = 37;
+    const index = 37;
 
     const code = `
     const name = "cxr";
@@ -414,7 +414,7 @@ describe("ArrowFunctionExpression", () => {
   });
 
   it("export default function", () => {
-    let index = 37;
+    const index = 37;
 
     const code = `
     const name = "cxr";
@@ -530,7 +530,7 @@ test("Class Method", () => {
 
 
 it("export arrowFunctionExpression function and export FunctionDeclaration  ", () => {
-  let index = 37;
+  const index = 37;
 
   const code = `
   export const getName = () => 'heihei';

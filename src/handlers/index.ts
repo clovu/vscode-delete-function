@@ -23,7 +23,7 @@ export function getDeleteFunctionNode(index: number, code: string, type: string)
   } if (type === "rust") {
     const editor = vscode.window.activeTextEditor;
     if (!editor) { return; }
-    let curPos = editor.selection.active;
+    const curPos = editor.selection.active;
 
     return getDeleteFunctionNodeRust(code, curPos.line);
   } else {

@@ -16,8 +16,8 @@ function deleteFunction() {
   const editor = vscode.window.activeTextEditor;
 
   if (editor) {
-    let curPos = editor.selection.active;
-    let offset = editor.document.offsetAt(curPos);
+    const curPos = editor.selection.active;
+    const offset = editor.document.offsetAt(curPos);
     const languageType = vscode.window.activeTextEditor?.document.languageId;
 
     if (!languageType) {
