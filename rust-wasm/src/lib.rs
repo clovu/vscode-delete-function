@@ -55,42 +55,31 @@ fn determine_range(span: Span, sig_ident: String, focus_line: usize) -> Option<R
 }
 
 fn for_each_impl_items(items: Vec<syn::ImplItem>, focus_line: usize) -> Option<RsNode> {
-  for item in items {
-    if let syn::ImplItem::Fn(item) = item
-      && let Some(range) = determine_range(item.span(), item.sig.ident.to_string(), focus_line)
-    {
-      return Some(range);
-    }
-  }
-  None
+  items.into_iter().find_map(|item| match item {
+    syn::ImplItem::Fn(item) => determine_range(item.span(), item.sig.ident.to_string(), focus_line),
+    _ => None,
+  })
 }
 
 #[wasm_bindgen]
 pub fn rust2ast(code: &str, focus_line: usize) -> Option<String> {
   let ast_result = syn::parse_str::<syn::File>(code);
-  if ast_result.is_err() {
-    return None;
-  }
-  let ast = ast_result.unwrap();
 
-  for item in ast.items {
-    match item {
-      syn::Item::Fn(item) => {
-        if let Some(range) = determine_range(item.span(), item.sig.ident.to_string(), focus_line) {
-          return Some(range.into());
-        }
+  let Ok(ast) = ast_result else {
+    return None;
+  };
+
+  ast
+    .items
+    .into_iter()
+    .find_map(|item| match item {
+      syn::Item::Fn(item) => determine_range(item.span(), item.sig.ident.to_string(), focus_line),
+      syn::Item::Impl(item) if is_item_in_range(item.span(), focus_line) => {
+        for_each_impl_items(item.items, focus_line)
       }
-      syn::Item::Impl(item) => {
-        if is_item_in_range(item.span(), focus_line)
-          && let Some(range) = for_each_impl_items(item.items, focus_line)
-        {
-          return Some(range.into());
-        }
-      }
-      _ => {}
-    }
-  }
-  None
+      _ => None,
+    })
+    .map(Into::into)
 }
 
 #[test]
