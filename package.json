@@ -1,20 +1,20 @@
 {
-  "name": "delete-function",
+  "name": "vscode-delete-function",
   "displayName": "Delete Function",
   "description": "quick delete function",
   "version": "1.0.1",
-  "publisher": "cuixiaorui",
+  "publisher": "clovu",
   "engines": {
     "vscode": "^1.72.0"
   },
-  "author": "阿崔cxr <cui_xiaorui@126.com>",
+  "author": "Clover You <hi@clovu.me>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cuixiaorui/delete-function.git"
+    "url": "https://github.com/clovu/vscode-delete-function.git"
   },
-  "homepage": "https://github.com/cuixiaorui/delete-function",
-  "bugs": "https://github.com/cuixiaorui/delete-function/issues",
+  "homepage": "https://github.com/clovu/vscode-delete-function",
+  "bugs": "https://github.com/clovu/vscode-delete-function/issues",
   "keywords": [
     "refactor",
     "javascript",

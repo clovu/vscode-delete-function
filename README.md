@@ -1,4 +1,4 @@
-# [Delete-Function](https://marketplace.visualstudio.com/items?itemName=cuixiaorui.delete-function)
+# [Delete-Function](https://marketplace.visualstudio.com/items?itemName=clovu.vscode-delete-function)
 
 quick delete function that support javascript、typescript and rust
 
@@ -41,3 +41,15 @@ quick delete function that support javascript、typescript and rust
 you can config follow above
 
 replace 'before' to you want
+
+## Fork
+
+This repository is a fork of [cuixiaorui/delete-function](https://github.com/cuixiaorui/delete-function).
+
+The original project is no longer maintained and pending pull requests are not being merged. This fork ([clovu/vscode-delete-function](https://github.com/clovu/vscode-delete-function)) continues maintenance and is actively published, carrying forward fixes and improvements.
+
+Many thanks to the original author for creating this extension.
+
+## License
+
+[MIT](./LICENSE) © [Clover You](https://github.com/clovu)
