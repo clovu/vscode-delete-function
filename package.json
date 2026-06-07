@@ -51,7 +51,8 @@
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint .",
     "test": "node ./out/test/runTest.js",
-    "test:unit": "vitest --run"
+    "test:unit": "vitest --run",
+    "build:rust": "wasm-pack build --target nodejs --scope delete-function --release -d dist --out-name index"
   },
   "devDependencies": {
     "@babel/types": "^7.29.7",
@@ -76,6 +77,6 @@
     "@babel/parser": "^7.29.7",
     "@babel/traverse": "^7.29.7",
     "@vue/compiler-sfc": "^3.5.35",
-    "pkg": "link:rust-wasm/pkg"
+    "@delete-function/rust": "workspace:^"
   }
 }

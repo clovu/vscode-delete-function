@@ -1,4 +1,4 @@
-import { rust2ast } from 'pkg/delete_function_vsc'
+import { rust2ast } from '@delete-function/rust'
 import { Node } from './index'
 
 export function getDeleteFunctionNodeRust(code: string, focusLine: number) {

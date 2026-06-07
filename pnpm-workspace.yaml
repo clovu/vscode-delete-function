@@ -1,5 +1,6 @@
 packages:
   - .
+  - rust-wasm/dist
 
 allowBuilds:
   esbuild: true

@@ -14,12 +14,12 @@ importers:
       '@babel/traverse':
         specifier: ^7.29.7
         version: 7.29.7
+      '@delete-function/rust':
+        specifier: workspace:^
+        version: link:rust-wasm/dist
       '@vue/compiler-sfc':
         specifier: ^3.5.35
         version: 3.5.35
-      pkg:
-        specifier: link:rust-wasm/pkg
-        version: link:rust-wasm/pkg
     devDependencies:
       '@babel/types':
         specifier: ^7.29.7
@@ -72,6 +72,8 @@ importers:
       vitest:
         specifier: ^4.1.8
         version: 4.1.8(@types/node@25.9.2)(vite@8.0.16(@types/node@25.9.2)(jiti@2.7.0))
+
+  rust-wasm/dist: {}
 
 packages:
 

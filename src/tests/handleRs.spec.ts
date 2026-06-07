@@ -1,10 +1,10 @@
-import { rust2ast } from 'pkg/delete_function_vsc'
+import { rust2ast } from '@delete-function/rust'
 import { describe, test, expect } from 'vitest'
 
 describe('handle rust', () => {
 
-    test('should delete function at focurs Position', () => {
-        const code = `const TIPS: &[&str] = &[
+  test('should delete function at focurs Position', () => {
+    const code = `const TIPS: &[&str] = &[
         "Click on any AST node with a '+' to expand it",
 
         "Hovering over a node highlights the \
@@ -19,13 +19,13 @@ describe('handle rust', () => {
         }
       }
     `
-        const range = rust2ast(code, 10) ?? '{}'
+    const range = rust2ast(code, 10) ?? '{}'
 
-        expect(JSON.parse(range)).toEqual(
-            expect.objectContaining({
-                'start': { 'line': 9, 'column': 6 }, 'end': { 'line': 13, 'column': 7 }
-            })
-        )
+    expect(JSON.parse(range)).toEqual(
+      expect.objectContaining({
+        'start': { 'line': 9, 'column': 6 }, 'end': { 'line': 13, 'column': 7 }
+      })
+    )
 
-    })
+  })
 })
