@@ -21,8 +21,8 @@
     "dist"
   ],
   "scripts": {
-    "compile": "wasm-pack build --target web --scope delete-function --release -d dist --out-name index",
-    "dev": "wasm-pack build --target no-modules --scope delete-function --dev -d dist --out-name index",
+    "compile": "wasm-pack build --target nodejs --scope delete-function --release -d dist --out-name index",
+    "dev": "wasm-pack build --target nodejs --scope delete-function --dev -d dist --out-name index",
     "build": "pnpm compile",
     "prepack": "pnpm run build"
   }
