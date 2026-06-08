@@ -1,3 +1,4 @@
+import { NodePath } from '@babel/traverse'
 import { ClassMethodsHandler } from './ClassMethodsHandler'
 import { ExportDeclarationHandler } from './ExportDeclarationHandler'
 import { ExportDefaultDeclarationHandler } from './ExportDefaultDeclarationHandler'
@@ -6,7 +7,8 @@ import { FunctionDeclarationHandler } from './FunctionDeclarationHandler'
 import { FunctionExpressionHandler } from './FunctionExpressionHandler'
 import { ObjectMethodHandler } from './ObjectMethdHandler'
 import { ObjectPropertyHandler } from './ObjectPropertyHandler'
-export function createNodeFunctionExpressionHandler(path, index) {
+import { ClassMethod, ObjectMethod } from '@babel/types'
+export function createNodeFunctionExpressionHandler(path: NodePath, index: number) {
   if (path.parentPath?.isExportDefaultDeclaration()) {
     return new ExportDefaultDeclarationHandler(path, index)
   } else if (
@@ -23,10 +25,10 @@ export function createNodeFunctionExpressionHandler(path, index) {
   }
 }
 
-export function createNodeFunctionDeclarationHandler(path, index) {
+export function createNodeFunctionDeclarationHandler(path: NodePath, index: number) {
   if (
-    path.parentPath.isExportNamedDeclaration() ||
-    path.parentPath.isExportDefaultDeclaration()
+    path.parentPath?.isExportNamedDeclaration() ||
+    path.parentPath?.isExportDefaultDeclaration()
   ) {
     return new ExportDeclarationHandler(path, index)
   } else if (path.isFunctionDeclaration()) {
@@ -34,10 +36,10 @@ export function createNodeFunctionDeclarationHandler(path, index) {
   }
 }
 
-export function createNodeClassMethodHandler(path, index) {
+export function createNodeClassMethodHandler(path: NodePath<ClassMethod>, index: number) {
   return new ClassMethodsHandler(path, index)
 }
 
-export function createNodeObjectMethodHandler(path, index) {
+export function createNodeObjectMethodHandler(path: NodePath<ObjectMethod>, index: number) {
   return new ObjectMethodHandler(path, index)
 }

@@ -1,5 +1,5 @@
 import * as vscode from 'vscode'
-import { getDeleteFunctionNode } from './handlers'
+import { getDeleteFunctionNode } from '@delete-function/core'
 
 export function activate(context: vscode.ExtensionContext) {
   const commandId = 'delete-function.deleteFunction'
@@ -7,7 +7,6 @@ export function activate(context: vscode.ExtensionContext) {
     try {
       deleteFunction()
     } catch (e) {
-      console.error(e)
       const message = e instanceof Error ? e.message : String(e)
       vscode.window.showErrorMessage(`Delete function failed: ${message}`)
     }

@@ -1,6 +1,6 @@
 import type { NodePath } from '@babel/traverse'
 import traverse from '@babel/traverse'
-import { FunctionDeclaration } from '@babel/types'
+import type { FunctionDeclaration } from '@babel/types'
 import {
   createNodeClassMethodHandler,
   createNodeFunctionDeclarationHandler,
@@ -8,7 +8,7 @@ import {
   createNodeObjectMethodHandler
 } from '../nodeHandlers'
 import { parse } from '../parse'
-import { Node } from './index'
+import type { Node } from './index'
 
 /**
  * return function node by index on documentText
@@ -46,7 +46,7 @@ export function getDeleteFunctionNodeJs(
     }
   }
 
-  function handleFunctionExpression(path) {
+  function handleFunctionExpression(path: NodePath) {
     const nodeHandler = createNodeFunctionExpressionHandler(path, index)
     if (nodeHandler?.isContain()) {
       node = nodeHandler?.handle()

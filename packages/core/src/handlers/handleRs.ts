@@ -1,5 +1,5 @@
 import { rust2ast } from '@delete-function/rust'
-import { Node } from './index'
+import type { Node } from './index'
 
 export function getDeleteFunctionNodeRust(code: string, focusLine: number) {
   const astStr = rust2ast(code, focusLine + 1)

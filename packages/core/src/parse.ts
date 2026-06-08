@@ -37,7 +37,7 @@ const BABEL_PARSER_OPTIONS: ParserOptions = {
   ],
 }
 
-export function parse(code) {
+export function parse(code: string) {
   const ast = babelParse(code, BABEL_PARSER_OPTIONS)
   return ast
 }

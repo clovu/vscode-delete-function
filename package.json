@@ -45,6 +45,7 @@
     ]
   },
   "scripts": {
+    "preinstall": "pnpm build:rust",
     "vscode:prepublish": "pnpm run compile",
     "compile": "tsc",
     "watch": "tsc -watch",
@@ -52,31 +53,20 @@
     "lint": "eslint .",
     "test": "node ./out/test/runTest.js",
     "test:unit": "vitest --run",
-    "build:rust": "wasm-pack build --target nodejs --scope delete-function --release -d dist --out-name index"
+    "build:rust": "pnpm -C packages/rust exec wasm-pack build --target nodejs --scope delete-function --release -d dist --out-name index"
   },
   "devDependencies": {
-    "@babel/types": "^7.29.7",
     "@eslint/js": "^10.0.1",
-    "@types/babel__traverse": "^7.28.0",
-    "@types/glob": "^9.0.0",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "25.9.2",
     "@types/vscode": "^1.72.0",
     "@typescript-eslint/eslint-plugin": "^8.60.1",
     "@typescript-eslint/parser": "^8.60.1",
     "@vscode/test-electron": "^2.5.2",
     "eslint": "^10.4.1",
-    "glob": "^13.0.6",
-    "jiti": "^2.7.0",
-    "mocha": "^11.7.6",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.60.1",
     "vitest": "^4.1.8"
   },
   "dependencies": {
-    "@babel/parser": "^7.29.7",
-    "@babel/traverse": "^7.29.7",
-    "@vue/compiler-sfc": "^3.5.35",
-    "@delete-function/rust": "link:./packages/rust/dist"
+    "@delete-function/core": "workspace:^"
   }
 }

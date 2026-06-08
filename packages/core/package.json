@@ -1,0 +1,41 @@
+{
+  "name": "@delete-function/core",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "prepublishOnly": "pnpm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/parser": "^7.29.7",
+    "@babel/traverse": "^7.29.7",
+    "@vue/compiler-sfc": "^3.5.35",
+    "@delete-function/rust": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/babel__traverse": "^7.28.0",
+    "@babel/types": "^7.29.7",
+    "@types/glob": "^9.0.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "25.9.2",
+    "tsdown": "^0.22.2",
+    "glob": "^13.0.6",
+    "jiti": "^2.7.0",
+    "mocha": "^11.7.6"
+  }
+}
