@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
 import { getDeleteFunctionNodeJs } from './handleJs'
-import { getDeleteFunctionNodeRust } from './handleRs'
+import { getDeleteFunctionNodeRust, vscodePosition2RustPosition } from './handleRs'
 import { getDeleteFunctionNodeVue } from './handleVue'
 
 export interface Position {
@@ -31,9 +31,8 @@ export function getDeleteFunctionNode(position: Position, code: string, type: st
   } if (type === 'rust') {
     const editor = vscode.window.activeTextEditor
     if (!editor) { return }
-    const curPos = editor.selection.active
 
-    return getDeleteFunctionNodeRust(code, curPos.line)
+    return getDeleteFunctionNodeRust(code, vscodePosition2RustPosition(position))
   } else {
     return getDeleteFunctionNodeJs(offset, code)
   }

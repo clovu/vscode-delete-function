@@ -1,8 +1,13 @@
-import { rust2ast } from '@delete-function/rust'
-import type { Node } from './index'
+import { Position, rust2ast } from '@delete-function/rust'
 
-export function getDeleteFunctionNodeRust(code: string, focusLine: number) {
-  const astStr = rust2ast(code, focusLine + 1)
+import type { Node, Position as VscPosition } from './index'
+
+export function vscodePosition2RustPosition(vp: VscPosition): Position {
+  return new Position(vp.line + 1, vp.column)
+}
+
+export function getDeleteFunctionNodeRust(code: string, position: Position) {
+  const astStr = rust2ast(code, position)
   if (!astStr) { return }
   const ast = JSON.parse(astStr) as Node
 
