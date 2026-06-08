@@ -3,6 +3,12 @@ import { getDeleteFunctionNodeJs } from './handleJs'
 import { getDeleteFunctionNodeRust } from './handleRs'
 import { getDeleteFunctionNodeVue } from './handleVue'
 
+export interface Position {
+  line: number;
+  column: number;
+  offset: number;
+}
+
 export interface Node {
   name: string;
   start: {
@@ -17,9 +23,11 @@ export interface Node {
   };
 }
 
-export function getDeleteFunctionNode(index: number, code: string, type: string) {
+export function getDeleteFunctionNode(position: Position, code: string, type: string) {
+  const { offset } = position
+
   if (type === 'vue') {
-    return getDeleteFunctionNodeVue(index, code)
+    return getDeleteFunctionNodeVue(offset, code)
   } if (type === 'rust') {
     const editor = vscode.window.activeTextEditor
     if (!editor) { return }
@@ -27,6 +35,6 @@ export function getDeleteFunctionNode(index: number, code: string, type: string)
 
     return getDeleteFunctionNodeRust(code, curPos.line)
   } else {
-    return getDeleteFunctionNodeJs(index, code)
+    return getDeleteFunctionNodeJs(offset, code)
   }
 }

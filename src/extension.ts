@@ -1,5 +1,5 @@
 import * as vscode from 'vscode'
-import { getDeleteFunctionNode } from '@delete-function/core'
+import { getDeleteFunctionNode, type Position } from '@delete-function/core'
 
 export function activate(context: vscode.ExtensionContext) {
   const commandId = 'delete-function.deleteFunction'
@@ -15,19 +15,32 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposable)
 }
 
+function createPosition(curPos: vscode.Position): Position {
+  const editor = vscode.window.activeTextEditor
+  const offset = editor?.document.offsetAt(curPos)
+
+  return {
+    line: curPos.line,
+    column: curPos.character,
+    offset: offset ?? 0
+  }
+}
+
 function deleteFunction() {
   const editor = vscode.window.activeTextEditor
 
   if (editor) {
     const curPos = editor.selection.active
-    const offset = editor.document.offsetAt(curPos)
+
     const languageType = vscode.window.activeTextEditor?.document.languageId
+    const position = createPosition(curPos)
 
     if (!languageType) {
       return
     }
+
     const node = getDeleteFunctionNode(
-      offset,
+      position,
       editor.document.getText(),
       languageType
     )
