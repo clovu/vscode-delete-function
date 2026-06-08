@@ -49,8 +49,8 @@ importers:
         specifier: ^7.29.7
         version: 7.29.7(supports-color@8.1.1)
       '@delete-function/rust':
-        specifier: link:../rust/dist
-        version: link:../rust/dist
+        specifier: workspace:^
+        version: link:../rust
       '@vue/compiler-sfc':
         specifier: ^3.5.35
         version: 3.5.35

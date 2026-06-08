@@ -45,15 +45,16 @@
     ]
   },
   "scripts": {
-    "preinstall": "pnpm build:rust",
     "vscode:prepublish": "pnpm run compile",
-    "compile": "tsc",
+    "compile": "pnpm --filter @delete-function/core... dev && tsc",
+    "dev": "pnpm --filter @delete-function/core... dev && tsc",
     "watch": "tsc -watch",
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint .",
     "test": "node ./out/test/runTest.js",
     "test:unit": "vitest --run",
-    "build:rust": "pnpm -C packages/rust exec wasm-pack build --target nodejs --scope delete-function --release -d dist --out-name index"
+    "build:rust": "pnpm --filter @delete-function/rust build",
+    "build:core": "pnpm --filter @delete-function/core... build"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

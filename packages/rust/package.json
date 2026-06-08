@@ -1,0 +1,29 @@
+{
+  "name": "@delete-function/rust",
+  "version": "0.1.0",
+  "description": "A Visual Studio Code extension to delete functions in Rust code.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clovu/vscode-delete-function"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "compile": "wasm-pack build --target web --scope delete-function --release -d dist --out-name index",
+    "dev": "wasm-pack build --target no-modules --scope delete-function --dev -d dist --out-name index",
+    "build": "pnpm compile",
+    "prepack": "pnpm run build"
+  }
+}
